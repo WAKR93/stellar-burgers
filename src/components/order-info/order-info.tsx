@@ -1,6 +1,5 @@
 import { FC, useMemo } from 'react';
-import { Preloader } from '../ui/preloader';
-import { OrderInfoUI } from '../ui/order-info';
+import { Preloader, OrderInfoUI } from '@ui';
 import { TIngredient } from '@utils-types';
 
 export const OrderInfo: FC = () => {
