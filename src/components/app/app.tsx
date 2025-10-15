@@ -60,7 +60,7 @@ const IngredientPage = () => {
 const IngredientModal = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const ingredients = useSelector((state: any) => state.ingredients.items);
+  const ingredients = useSelector((state: any) => state.ingredients.dataCards);
   const ingredient = ingredients.find((item: any) => item._id === id);
 
   if (!ingredient) return null;
