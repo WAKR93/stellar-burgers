@@ -28,6 +28,16 @@ export const ForgotPassword: FC = () => {
       errorText={error?.message}
       email={form.email}
       setEmail={(value) =>
+        handleChange({ target: { name: 'email', value } } as any)//РАзобраться с трипом value: React.SetStateAction<string>
+      }
+      handleSubmit={handleSubmit}
+    />
+  );
+  return (
+    <ForgotPasswordUI
+      errorText={error?.message}
+      email={form.email}
+      setEmail={(value) =>
         handleChange({ target: { name: 'email', value } } as any)
       }
       handleSubmit={handleSubmit as any}
