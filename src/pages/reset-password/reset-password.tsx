@@ -38,7 +38,7 @@ export const ResetPassword: FC = () => {
       setToken={(value) =>
         handleChange({ target: { name: 'token', value } } as any)
       }
-      handleSubmit={handleSubmit as any}
+      handleSubmit={handleSubmit}
     />
   );
 };
