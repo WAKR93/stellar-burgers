@@ -4,19 +4,26 @@ import { useDispatch, useSelector } from '../../services/store';
 import { checkUserAuth } from '../../services/slices/authSlice';
 import { fetchIngredients } from '../../services/slices/ingredientsSlice';
 
-import { ConstructorPage } from '../../pages/constructor-page';
-import { Feed } from '../../pages/feed';
-import { Login } from '../../pages/login';
-import { Register } from '../../pages/register';
-import { ForgotPassword } from '../../pages/forgot-password';
-import { ResetPassword } from '../../pages/reset-password';
-import { Profile } from '../../pages/profile';
-import { ProfileOrders } from '../../pages/profile-orders';
-import { NotFound404 } from '../../pages/not-fount-404';
+import {
+  ConstructorPage,
+  Feed,
+  Login,
+  Register,
+  ForgotPassword,
+  ResetPassword,
+  Profile,
+  ProfileOrders,
+  NotFound404
+} from '@pages';
 
-import { IngredientDetails, OrderInfo, Modal, AppHeader } from '@components';
+import {
+  IngredientDetails,
+  OrderInfo,
+  Modal,
+  AppHeader,
+  ProtectedRoute
+} from '@components';
 
-import { ProtectedRoute } from '../protected-route/protected-route';
 import '../../index.css';
 import styles from './app.module.css';
 
