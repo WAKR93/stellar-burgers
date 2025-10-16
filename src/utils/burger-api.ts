@@ -1,8 +1,7 @@
 import { setCookie, getCookie } from './cookie';
 import { TIngredient, TOrder, TOrdersData, TUser } from './types';
 
-const URL =
-  process.env.BURGER_API_URL || 'https://norma.nomoreparties.space/api';
+const URL = process.env.BURGER_API_URL;
 
 const checkResponse = <T>(res: Response): Promise<T> =>
   res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
@@ -110,7 +109,7 @@ export const orderBurgerApi = (data: string[]) =>
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      authorization: `Bearer ${getCookie('accessToken')}` // <-- Исправлено!
+      authorization: getCookie('accessToken')
     } as HeadersInit,
     body: JSON.stringify({
       ingredients: data

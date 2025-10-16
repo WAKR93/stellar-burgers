@@ -1,41 +1,58 @@
-import { FC, SyntheticEvent, useState } from 'react';
-import { RegisterUI } from '@ui-pages';
-import { useDispatch } from '../../services/store';
+import { FC, FormEvent, useEffect } from 'react';
+import { useDispatch, useSelector } from '../../services/store';
 import { useNavigate } from 'react-router-dom';
-import { registerUser } from '../../services/slices/user/userSlice'; // Импортируй свой thunk
+import { registerUser, clearError } from '../../services/slices/authSlice';
+import { RegisterUI } from '@ui-pages';
+import { useForm } from '../../hooks/useForm';
 
 export const Register: FC = () => {
+  const [form, handleChange] = useForm({
+    userName: '',
+    email: '',
+    password: ''
+  });
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [userName, setUserName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorText, setErrorText] = useState('');
+  const { loading, error } = useSelector((store) => store.auth);
 
-  const handleSubmit = (e: SyntheticEvent) => {
+  useEffect(() => {
+    dispatch(clearError());
+  }, [dispatch]);
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setErrorText('');
-    dispatch(registerUser({ name: userName, email, password }))
+    dispatch(
+      registerUser({
+        name: form.userName,
+        email: form.email,
+        password: form.password
+      })
+    )
       .unwrap()
       .then(() => {
-        navigate('/login');
+        navigate('/');
       })
-      .catch((err) => {
-        setErrorText('Ошибка регистрации. Проверьте данные.');
-      });
+      .catch(() => {});
   };
 
   return (
     <RegisterUI
-      errorText={errorText}
-      email={email}
-      userName={userName}
-      password={password}
-      setEmail={setEmail}
-      setPassword={setPassword}
-      setUserName={setUserName}
-      handleSubmit={handleSubmit}
+      errorText={error || ''}
+      email={form.email}
+      userName={form.userName}
+      password={form.password}
+      setEmail={(value) =>
+        handleChange({ target: { name: 'email', value } } as any)
+      }
+      setPassword={(value) =>
+        handleChange({ target: { name: 'password', value } } as any)
+      }
+      setUserName={(value) =>
+        handleChange({ target: { name: 'userName', value } } as any)
+      }
+      handleSubmit={handleSubmit as any}
     />
   );
 };

@@ -1,17 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { rootReducer } from './rootReducer';
-import { wsProfileOrdersMiddleware } from './middleware/wsProfileOrdersMiddleware';
-
 import {
   TypedUseSelectorHook,
   useDispatch as dispatchHook,
   useSelector as selectorHook
 } from 'react-redux';
+import { rootReducer } from './rootReducer';
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(wsProfileOrdersMiddleware),
   devTools: process.env.NODE_ENV !== 'production'
 });
 

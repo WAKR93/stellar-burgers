@@ -1,33 +1,23 @@
 import styles from './ingredients-category.module.css';
 import { forwardRef } from 'react';
+import { TIngredientsCategoryUIProps } from './type';
 import { BurgerIngredient } from '@components';
-import { TIngredient } from '@utils-types';
-
-type IngredientsCategoryUIProps = {
-  title: string;
-  titleRef: React.RefObject<HTMLHeadingElement>;
-  type: 'bun' | 'sauce' | 'main';
-  ingredients: (TIngredient & { count?: number })[];
-  onIngredientClick: (ingredient: TIngredient) => void;
-};
 
 export const IngredientsCategoryUI = forwardRef<
   HTMLUListElement,
-  IngredientsCategoryUIProps
->(({ title, titleRef, ingredients, onIngredientClick }, ref) => (
+  TIngredientsCategoryUIProps
+>(({ title, titleRef, ingredients, ingredientsCounters }, ref) => (
   <>
     <h3 className='text text_type_main-medium mt-10 mb-6' ref={titleRef}>
       {title}
     </h3>
     <ul className={styles.items} ref={ref}>
       {ingredients.map((ingredient) => (
-        <li className={styles.container} key={ingredient._id}>
-          <BurgerIngredient
-            ingredient={ingredient}
-            count={ingredient.count || 0}
-            onClick={() => onIngredientClick(ingredient)}
-          />
-        </li>
+        <BurgerIngredient
+          ingredient={ingredient}
+          key={ingredient._id}
+          count={ingredientsCounters[ingredient._id]}
+        />
       ))}
     </ul>
   </>

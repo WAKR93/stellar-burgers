@@ -1,38 +1,46 @@
-import { FC, SyntheticEvent, useState } from 'react';
+import { FC, FormEvent, useEffect } from 'react';
+import { useDispatch, useSelector } from '../../services/store';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { loginUser, clearError } from '../../services/slices/authSlice';
 import { LoginUI } from '@ui-pages';
-import { useDispatch } from '../../services/store';
-import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../../services/slices/user/userSlice';
+import { useForm } from '../../hooks/useForm';
 
 export const Login: FC = () => {
+  const [form, handleChange] = useForm({ email: '', password: '' });
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorText, setErrorText] = useState('');
+  const { loading, error } = useSelector((store) => store.auth);
+  const from = location.state?.from || '/';
 
-  const handleSubmit = (e: SyntheticEvent) => {
+  useEffect(() => {
+    dispatch(clearError());
+  }, [dispatch]);
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setErrorText('');
-    dispatch(loginUser({ email, password }))
+    dispatch(loginUser(form))
       .unwrap()
       .then(() => {
-        navigate('/profile');
+        navigate(from, { replace: true });
       })
-      .catch(() => {
-        setErrorText('Ошибка входа. Проверьте данные.');
-      });
+      .catch(() => {});
   };
 
   return (
     <LoginUI
-      errorText={errorText}
-      email={email}
-      setEmail={setEmail}
-      password={password}
-      setPassword={setPassword}
-      handleSubmit={handleSubmit}
+      errorText={error || ''}
+      email={form.email}
+      setEmail={(value) =>
+        handleChange({ target: { name: 'email', value } } as any)
+      }
+      password={form.password}
+      setPassword={(value) =>
+        handleChange({ target: { name: 'password', value } } as any)
+      }
+      handleSubmit={handleSubmit as any}
     />
   );
 };

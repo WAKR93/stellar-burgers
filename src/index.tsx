@@ -1,9 +1,10 @@
 import React from 'react';
 import * as ReactDOMClient from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { store } from './services/store';
-import App from './components/app/app';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import App from './components/app/app';
+import store from './services/store';
+import './index.css';
 
 const container = document.getElementById('root') as HTMLElement;
 const root = ReactDOMClient.createRoot(container!);
@@ -11,12 +12,7 @@ const root = ReactDOMClient.createRoot(container!);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter
-        future={{
-          v7_startTransition: true,
-          v7_relativeSplatPath: true
-        }}
-      >
+      <BrowserRouter>
         <App />
       </BrowserRouter>
     </Provider>

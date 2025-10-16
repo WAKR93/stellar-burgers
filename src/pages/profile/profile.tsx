@@ -1,13 +1,11 @@
 import { ProfileUI } from '@ui-pages';
-import { FC, SyntheticEvent, useEffect, useState } from 'react';
-import { useSelector, useDispatch } from '../../services/store';
-import { updateUser, logout } from '../../services/slices/user/userSlice';
-import { useNavigate } from 'react-router-dom';
+import { FC, FormEvent, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from '../../services/store';
+import { updateUser, clearError } from '../../services/slices/authSlice';
 
 export const Profile: FC = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const user = useSelector((state) => state.user.user);
+  const { user, error } = useSelector((store) => store.auth);
 
   const [formValue, setFormValue] = useState({
     name: user?.name || '',
@@ -23,23 +21,24 @@ export const Profile: FC = () => {
     }));
   }, [user]);
 
+  useEffect(() => {
+    dispatch(clearError());
+  }, [dispatch]);
+
   const isFormChanged =
-    formValue.name !== (user?.name || '') ||
-    formValue.email !== (user?.email || '') ||
+    formValue.name !== user?.name ||
+    formValue.email !== user?.email ||
     !!formValue.password;
 
-  const handleSubmit = (e: SyntheticEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data: { name?: string; email?: string; password?: string } = {};
-    if (formValue.name !== user?.name) data.name = formValue.name;
-    if (formValue.email !== user?.email) data.email = formValue.email;
-    if (formValue.password) data.password = formValue.password;
-
-    dispatch(updateUser(data));
-    setFormValue((prev) => ({ ...prev, password: '' }));
+    if (isFormChanged) {
+      dispatch(updateUser(formValue));
+      setFormValue((prev) => ({ ...prev, password: '' }));
+    }
   };
 
-  const handleCancel = (e: SyntheticEvent) => {
+  const handleCancel = (e: FormEvent) => {
     e.preventDefault();
     setFormValue({
       name: user?.name || '',
@@ -55,19 +54,14 @@ export const Profile: FC = () => {
     }));
   };
 
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate('/login');
-  };
-
   return (
     <ProfileUI
       formValue={formValue}
       isFormChanged={isFormChanged}
       handleCancel={handleCancel}
-      handleSubmit={handleSubmit}
+      handleSubmit={handleSubmit as any}
       handleInputChange={handleInputChange}
-      handleLogout={handleLogout} // обязательно передай этот проп
+      updateUserError={error || ''}
     />
   );
 };

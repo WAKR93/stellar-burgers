@@ -1,28 +1,16 @@
 import { ProfileOrdersUI } from '@ui-pages';
+import { TOrder } from '@utils-types';
 import { FC, useEffect } from 'react';
-import { useSelector, useDispatch } from '../../services/store';
-import {
-  wsConnect,
-  wsDisconnect
-} from '../../services/slices/profileOrders/profileOrdersSlice';
-import { getCookie } from '../../utils/cookie';
+import { useDispatch, useSelector } from '../../services/store';
+import { fetchUserOrders } from '../../services/slices/feedSlice';
 
 export const ProfileOrders: FC = () => {
   const dispatch = useDispatch();
-  const orders = useSelector((state) => state.profileOrders.orders);
+  const { userOrders } = useSelector((store) => store.feed);
 
   useEffect(() => {
-    // Берём токен из cookie!
-    const token = getCookie('accessToken');
-    if (token) {
-      dispatch(
-        wsConnect(`wss://norma.nomoreparties.space/orders?token=${token}`)
-      );
-    }
-    return () => {
-      dispatch(wsDisconnect());
-    };
+    dispatch(fetchUserOrders());
   }, [dispatch]);
 
-  return <ProfileOrdersUI orders={orders} />;
+  return <ProfileOrdersUI orders={userOrders} />;
 };

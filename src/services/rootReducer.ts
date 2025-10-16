@@ -1,16 +1,14 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import ingredientsReducer from './slices/ingredients/ingredientsSlice';
-import userReducer from './slices/user/userSlice';
-import feedReducer from './slices/feed/feedSlice';
-import profileOrdersReducer from './slices/profileOrders/profileOrdersSlice';
-import constructorItemsReducer from './slices/constructorItems/constructorItemsSlice';
-import orderReducer from './slices/order/orderSlice';
+import ingredientsReducer from './slices/ingredientsSlice';
+import constructorReducer from './slices/constructorSlice';
+import orderReducer from './slices/orderSlice';
+import authReducer from './slices/authSlice';
+import feedReducer from './slices/feedSlice';
 
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
-  user: userReducer,
-  feed: feedReducer,
-  profileOrders: profileOrdersReducer,
-  constructorItems: constructorItemsReducer,
-  order: orderReducer
+  burgerConstructor: constructorReducer,
+  order: orderReducer,
+  auth: authReducer,
+  feed: feedReducer
 });

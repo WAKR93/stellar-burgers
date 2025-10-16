@@ -13,12 +13,11 @@ export const ProfileUI: FC<ProfileUIProps> = ({
   updateUserError,
   handleSubmit,
   handleCancel,
-  handleInputChange,
-  handleLogout
+  handleInputChange
 }) => (
   <main className={`${commonStyles.container}`}>
     <div className={`mt-30 mr-15 ${styles.menu}`}>
-      <ProfileMenu handleLogout={handleLogout} />
+      <ProfileMenu />
     </div>
     <form
       className={`mt-30 ${styles.form} ${commonStyles.form}`}
