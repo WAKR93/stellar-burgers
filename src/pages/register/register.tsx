@@ -1,16 +1,13 @@
-import { FC, FormEvent, useEffect } from 'react';
+import { FC, FormEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from '../../services/store';
 import { useNavigate } from 'react-router-dom';
 import { registerUser, clearError } from '../../services/slices/authSlice';
 import { RegisterUI } from '@ui-pages';
-import { useForm } from '../../hooks/useForm';
 
 export const Register: FC = () => {
-  const [form, handleChange] = useForm({
-    userName: '',
-    email: '',
-    password: ''
-  });
+  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,9 +22,9 @@ export const Register: FC = () => {
     e.preventDefault();
     dispatch(
       registerUser({
-        name: form.userName,
-        email: form.email,
-        password: form.password
+        name: userName,
+        email: email,
+        password: password
       })
     )
       .unwrap()
@@ -40,19 +37,13 @@ export const Register: FC = () => {
   return (
     <RegisterUI
       errorText={error || ''}
-      email={form.email}
-      userName={form.userName}
-      password={form.password}
-      setEmail={(value) =>
-        handleChange({ target: { name: 'email', value } } as any)
-      }
-      setPassword={(value) =>
-        handleChange({ target: { name: 'password', value } } as any)
-      }
-      setUserName={(value) =>
-        handleChange({ target: { name: 'userName', value } } as any)
-      }
-      handleSubmit={handleSubmit as any}
+      email={email}
+      userName={userName}
+      password={password}
+      setEmail={setEmail}
+      setPassword={setPassword}
+      setUserName={setUserName}
+      handleSubmit={handleSubmit}
     />
   );
 };

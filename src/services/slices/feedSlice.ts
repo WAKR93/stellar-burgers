@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getFeedsApi, getOrdersApi } from '../../utils/burger-api';
-import { TOrder, TOrdersData } from '@utils-types';
+import { TOrder } from '@utils-types';
 
 type TFeedState = {
   orders: TOrder[];
@@ -39,7 +39,6 @@ const feedSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      // Feeds
       .addCase(fetchFeeds.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -54,7 +53,6 @@ const feedSlice = createSlice({
         state.loading = false;
         state.error = action.error.message || 'Failed to fetch feeds';
       })
-      // User Orders
       .addCase(fetchUserOrders.pending, (state) => {
         state.loading = true;
         state.error = null;
