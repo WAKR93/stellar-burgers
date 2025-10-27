@@ -98,8 +98,8 @@
     "test:watch": "jest --watch",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "start:cypress": "FAST_REFRESH=false WDS_SOCKET_HOST=0 npm start",
-    "test:cypress": "npm run start:cypress & wait-on http://localhost:4000 && cypress run"
+    "cypress:start": "FAST_REFRESH=false WDS_SOCKET_HOST=0 npm start",
+    "cypress:test": "npm run start:cypress & wait-on http://localhost:4000 && cypress run"
   },
   "eslintConfig": {
     "extends": [
