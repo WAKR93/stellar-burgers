@@ -87,22 +87,19 @@
     "url-loader": "^4.1.1"
   },
   "scripts": {
+    "start": "webpack serve --mode=development",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier ./src --write",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "build:mock": "webpack --mode=production --env api=mock",
-    "build:real": "webpack --mode=production --env api=real",
-    "start:mock": "webpack serve --mode=development --env api=mock",
-    "start:real": "webpack serve --mode=development --env api=real",
-    "cypress:open": "cypress open --e2e --browser electron",
-    "storybook:start": "storybook dev -p 6006",
-    "storybook:build": "storybook build",
-    "format": "prettier --write .",
-    "lint": "npm run lint:ts && npm run lint:styles",
-    "lint:ts": "eslint .",
-    "lint:styles": "stylelint '**/*.{css,scss}'",
-    "lint-fix": "npm run lint-fix:ts && npm run lint-fix:styles",
-    "lint-fix:ts": "eslint --fix .",
-    "lint-fix:styles": "stylelint --fix '**/*.{css,scss}'"
+    "test:watch": "jest --watch",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "start:cypress": "FAST_REFRESH=false WDS_SOCKET_HOST=0 npm start",
+    "test:cypress": "npm run start:cypress & wait-on http://localhost:4000 && cypress run"
   },
   "eslintConfig": {
     "extends": [

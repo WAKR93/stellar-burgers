@@ -1,28 +1,23 @@
-import type { JestConfigWithTsJest } from "ts-jest";
-
-const config: JestConfigWithTsJest = {
-  preset: "ts-jest",
-  clearMocks: true,
-  testEnvironment: "jsdom",
-
-  globals: {
-    __MODE__: "unit-tests",
-    __BURGER_API_CLIENT__: "mock",
-    __BURGER_API_BASE_URL__: "",
+module.exports = {
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
+  moduleNameMapping: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy'
   },
-
   transform: {
-    "^.+\\.tsx?$": ["ts-jest", {}],
+    '^.+\\.(ts|tsx)$': 'ts-jest',
   },
-
-  collectCoverageFrom: [
-    "!src/**/*.d.ts",
-    "src/**/*.{ts,tsx}",
-    "!src/**/__tests__/**",
-    "!src/**/__mocks__/**",
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  testMatch: [
+    '**/__tests__/**/*.(ts|tsx|js|jsx)',
+    '**/*.(test|spec).(ts|tsx|js|jsx)'
   ],
-  coverageDirectory: "coverage",
-  coverageReporters: ["text", "html"],
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx}',
+    '!src/**/*.d.ts',
+    '!src/index.tsx',
+    '!src/reportWebVitals.ts'
+  ],
 };
-
-export default config;
