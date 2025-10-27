@@ -1,0 +1,63 @@
+{
+  "success": true,
+  "name": "Флюоресцентный фалленианский люминесцентный бургер",
+  "order": {
+    "ingredients": [
+      {
+        "_id": "643d69a5c3f7b9001cfa093d",
+        "name": "Флюоресцентная булка R2-D3",
+        "type": "bun",
+        "proteins": 44,
+        "fat": 26,
+        "carbohydrates": 85,
+        "calories": 643,
+        "price": 988,
+        "image": "https://code.s3.yandex.net/react/code/bun-01.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/bun-01-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/bun-01-large.png",
+        "__v": 0
+      },
+      {
+        "_id": "643d69a5c3f7b9001cfa093e",
+        "name": "Филе Люминесцентного тетраодонтимформа",
+        "type": "main",
+        "proteins": 44,
+        "fat": 26,
+        "carbohydrates": 85,
+        "calories": 643,
+        "price": 988,
+        "image": "https://code.s3.yandex.net/react/code/meat-03.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/meat-03-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/meat-03-large.png",
+        "__v": 0
+      },
+      {
+        "_id": "643d69a5c3f7b9001cfa0947",
+        "name": "Плоды Фалленианского дерева",
+        "type": "main",
+        "proteins": 20,
+        "fat": 5,
+        "carbohydrates": 55,
+        "calories": 77,
+        "price": 874,
+        "image": "https://code.s3.yandex.net/react/code/sp_1.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/sp_1-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/sp_1-large.png",
+        "__v": 0
+      }
+    ],
+    "_id": "67f05c61e8e61d001cec07a9",
+    "owner": {
+      "name": "Irina Riazanskaia",
+      "email": "ryazanskaya.irina@yandex.ru",
+      "createdAt": "2025-03-24T22:28:20.443Z",
+      "updatedAt": "2025-03-27T21:29:56.311Z"
+    },
+    "status": "done",
+    "name": "Флюоресцентный фалленианский люминесцентный бургер",
+    "createdAt": "2025-04-04T22:25:37.642Z",
+    "updatedAt": "2025-04-04T22:25:38.328Z",
+    "number": 73486,
+    "price": 2850
+  }
+}
