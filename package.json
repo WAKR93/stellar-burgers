@@ -86,19 +86,14 @@
     "url-loader": "^4.1.1"
   },
   "scripts": {
-    "start": "webpack serve --mode=development",
+    "start": "webpack serve --mode=development --open",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier ./src --write",
     "test": "jest",
-    "test:coverage": "jest --coverage",
-    "test:watch": "jest --watch",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run",
-    "cypress:start": "FAST_REFRESH=false WDS_SOCKET_HOST=0 npm start",
-    "cypress:test": "npm run start:cypress & wait-on http://localhost:4000 && cypress run"
+    "cypress": "cypress open"
   },
   "eslintConfig": {
     "extends": [
