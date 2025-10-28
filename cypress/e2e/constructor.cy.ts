@@ -65,11 +65,13 @@ describe('Тестирование конструктора бургера', () 
 
     describe('Тестирование создания заказа', () => {
         beforeEach(() => {
-            cy.setCookie('accessToken', 'testToken');
-            localStorage.setItem('refreshToken', 'testToken');
             cy.intercept('GET', 'api/auth/user', { fixture: 'user' });
             cy.intercept('POST', 'api/orders', { fixture: 'order' });
             cy.intercept('GET', 'api/ingredients', { fixture: 'ingredients' });
+
+            cy.setCookie('accessToken', 'testToken');
+            localStorage.setItem('refreshToken', 'testToken');
+
             cy.visit('/');
         });
 
@@ -77,10 +79,12 @@ describe('Тестирование конструктора бургера', () 
             cy.get('@orderButton').should('be.disabled');
             cy.get('@bun').contains('Добавить').click();
             cy.get('@main').contains('Добавить').click();
-            cy.get('@orderButton').click();
+            cy.get('@orderButton').click(); 
             cy.get('@modals').children().should('have.length', 2);
             cy.get('#modals h2:first-of-type').should('have.text', testOrder.order.number);
-
+            cy.get('#modals button:first-of-type').click();
+            cy.wait(500);
+            cy.get('@modals').children().should('have.length', 0);
             cy.get('@constructor').should('not.contain', 'Краторная булка N-200i');
             cy.get('@constructor').should('not.contain', 'Филе Люминесцентного тетраодонтимформа');
         });
