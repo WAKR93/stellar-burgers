@@ -1,5 +1,6 @@
 import cypress from 'cypress';
 import * as testOrder from '../fixtures/order.json';
+const buttonOrder = '[data-cy="order-btn"]';
 
 describe('Тестирование конструктора бургера', () => {
     beforeEach(() => {
@@ -11,7 +12,7 @@ describe('Тестирование конструктора бургера', () 
         cy.get('[data-ingredient="main"]').as('main');
         cy.get('[data-ingredient="sauce"]').as('sauce');
         cy.get('#modals').as('modals');
-        cy.get('[data-order-button]').as('orderButton');
+        cy.get(buttonOrder).as('orderButton');
     });
 
     it('Тестирование существования компонента', () => {
